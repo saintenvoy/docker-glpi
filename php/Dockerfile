@@ -30,6 +30,8 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN apk update 
 
+RUN apk add --upgrade openssl-dev
+
 RUN apk add icu-dev \
   && docker-php-ext-install intl
 
@@ -71,5 +73,5 @@ RUN rm -rf /var/www/html/install/install.php
 
 EXPOSE 9000/tcp 
 
-CMD ["php-fpm"]
+CMD ["/usr/local/bin/glpi-verify-dir.sh","php-fpm"]
 
